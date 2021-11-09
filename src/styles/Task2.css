@@ -1,0 +1,66 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+  
+html {
+    color:#fff
+}
+  
+body {
+    background:#142950;
+    padding: 0 16px;
+}
+
+.comment {
+    background-color: #0d1e3f;
+    display: grid;
+    grid-template-columns: 200px 300px;
+    grid-template-rows: 140px;
+    margin-top: 30px;
+    padding:50px 20px;
+    width:550px;
+    border-radius:20px;
+    cursor: pointer;
+    border:1px solid rgb(0, 0, 37);
+
+}
+
+.comment:hover{
+    background-color: #0f2041;
+    box-shadow: 0px 15px 20px rgba(1, 219, 248, 0.4);
+    transform: translateY(-7px);
+    
+    
+}
+
+.image {
+    width: 125px;
+    height: 125px;
+    border-radius:50%;
+}
+
+.image:hover{
+    border: 1px solid #189df7;
+}
+p{
+    color:rgb(194, 192, 192);
+    margin: -20px 20px 20px 170px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.AppTask2{
+    margin-top:3%;
+    margin-left: 30%;
+
+}
+
+h1{
+    font-family: 'Montserrat', sans-serif;
+}
+h2{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
