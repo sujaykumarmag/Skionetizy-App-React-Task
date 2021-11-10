@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function App(){
+function AppTask1(){
     const [users, setUsers] = useState([]);
     useEffect(() => {
         fetchData();
@@ -118,4 +118,4 @@ function App(){
     );
 };
 
-export default App;
+export default AppTask1;
