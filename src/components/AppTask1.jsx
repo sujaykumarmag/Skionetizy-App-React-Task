@@ -36,7 +36,7 @@ function AppTask1(){
                 <span>{name}</span>
                 <span>{email}</span>
                 <span>
-                    <button>Update</button>
+                    <button onClick={updateUser}>Update</button>
                     <button onClick={handleDelete}>Delete</button>
                 </span>
             </div>
@@ -98,7 +98,29 @@ function AppTask1(){
             });
     };
 
+
+    async function updateUser(id){
+    await fetch('https://jsonplaceholder.typicode.com/users/1', {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: 1,
+          name: 'foo',
+          email: 'bar',
+          userId: 1,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+            setUsers((users) => [ data,...users]);
+      })
+    }
+  
+
     console.log(users);
+
     return (
         <div className="App">
             <br />
