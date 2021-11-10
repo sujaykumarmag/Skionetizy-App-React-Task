@@ -86,3 +86,34 @@ button {
 }
   
   
+input {
+    font-family: inherit;
+    border-bottom: 2px solidgray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    width: 250px;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    color: whitesmoke;
+    font-size: 20px;
+    box-shadow:none; 
+}
+  
+
+input:focus 
+{ 
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, primary,secondary);
+    border-image-slice: 1;
+}
