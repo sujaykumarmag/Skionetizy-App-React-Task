@@ -1,53 +1,121 @@
-import React from "react";
-import Axios from "axios";
+import React, { useEffect, useState } from "react";
 
-function AppTask1() {
+const App = () => {
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const url = "https://jsonplaceholder.typicode.com/posts/1";
-    const data = {
-        "userId": "1234",
-        "id": "2222",
-        "title": "EWSHJehdbk",
-        "body": "lorem ipsum dolor sit amet, consectetur adipiscing"
+    function AddUser({ onAdd }) {
+        const handleOnSubmit = (e) => {
+            e.preventDefault();
+            onAdd(e.target.name.value, e.target.email.value);
+            e.target.name.value = "";
+            e.target.email.value = "";
+        }
+        return (
+            <div>
+                <form onSubmit={handleOnSubmit}>
+                    <h3>Add User</h3>
+                    <input placeholder="Name" name="name" />
+                    <input placeholder="Email" name="email" />
+                    <button onSubmit={handleOnSubmit}>Create</button>
+                    <hr />
+                </form>
+            </div>
+        );
+    };
+    function User({ id, email, name, onDelete }){
+
+        const handleDelete = () => {
+            onDelete(id);
+        }
+
+        return (
+            <div className='list'>
+                <span>{name}</span>
+                <span>{email}</span>
+                <span>
+                    <button>Update</button>
+                    <button onClick={handleDelete}>Delete</button>
+                </span>
+            </div>
+        )
     }
-    function Create(){
-        Axios.post("https://jsonplaceholder.typicode.com/posts", data).then(res => {
-            console.log(res.data);
-        }).catch(err => console.log(err))
-    }
-    function Read(){
-        Axios.get(url, data)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    
-    }
-    function Update() {
-        Axios.put(url, data)
-            .then(data=> {
-                console.log(data);
+
+    const fetchData = async () => {
+        await fetch("https://jsonplaceholder.typicode.com/users")
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const onAdd = async (name, email) => {
+        await fetch("https://jsonplaceholder.typicode.com/users", {
+            method: "POST",
+            body: JSON.stringify({
+                name: name,
+                email: email,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        })
+            .then((res) => {
+                if (res.status !== 201) {
+                    return;
+                } else {
+                    return res.json();
+                }
             })
-            .catch((err) => console.log(err))
-    }
-
-    function Delete() {
-        Axios.delete(url, data)
-            .then(data => {
-                console.log(data);
+            .then((data) => {
+                setUsers((users) => [...users, data]);
             })
-            .catch((err) => console.log(err))
-    }
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const onDelete = async (id) => {
+        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+            method: "DELETE",
+        })
+            .then((res) => {
+                if (res.status !== 200) {
+                    return;
+                } else {
+                    setUsers(
+                        users.filter((user) => {
+                            return user.id !== id;
+                        })
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    console.log(users);
     return (
-        <div>
-            <button  onClick={Create}>Create the Resource</button>
-            <button  onClick={Read}>Read the Resource</button>
-            <button  onClick={Update}>Update the Resource</button>
-            <button  onClick={Delete}>Delete the Resource</button>
+        <div className="App">
+            <br />
+            <AddUser onAdd={onAdd} />
+            <div>
+                {users.map((user) => (
+                    <User
+                        id={user.id}
+                        key={user.id}
+                        name={user.name}
+                        email={user.email}
+                        onDelete={onDelete}
+                    />
+                ))}
+            </div>
         </div>
     );
-}
+};
 
-export default AppTask1;
+export default App;
