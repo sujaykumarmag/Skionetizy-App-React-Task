@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const App = () => {
+function App(){
     const [users, setUsers] = useState([]);
     useEffect(() => {
         fetchData();
