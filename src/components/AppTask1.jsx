@@ -16,7 +16,7 @@ function AppTask1() {
         }).catch(err => console.log(err))
     }
     function Read(){
-        Axios.post(url, data)
+        Axios.head(url, data)
           .then(function (response) {
             console.log(response);
           })
