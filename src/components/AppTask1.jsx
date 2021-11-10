@@ -11,12 +11,12 @@ function AppTask1() {
         "body": "lorem ipsum dolor sit amet, consectetur adipiscing"
     }
     function Create(){
-        Axios.get(url).then(res => {
+        Axios.post("https://jsonplaceholder.typicode.com/posts", data).then(res => {
             console.log(res.data);
         }).catch(err => console.log(err))
     }
     function Read(){
-        Axios.head(url, data)
+        Axios.get(url, data)
           .then(function (response) {
             console.log(response);
           })
